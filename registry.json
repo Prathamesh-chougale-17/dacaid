@@ -59,6 +59,47 @@
           "type": "registry:hook"
         }
       ]
+    },
+    {
+      "name": "solana-wallet-authencation",
+      "type": "registry:component",
+      "title": "Solana Wallet Authencation",
+      "description": "A component for Solana wallet authencation.",
+      "registryDependencies": [
+        "toast",
+        "button",
+        "dropdown-menu",
+        "alert-dialog"
+      ],
+      "dependencies": [
+        "@solana/wallet-adapter-react",
+        "@solana/wallet-adapter-base",
+        "@solana/web3.js"
+      ],
+      "files": [
+        {
+          "path": "registry/solana/components/app-wallet-provider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/solana/components/wallet-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/solana/components/auth-wallet-modal.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/solana/public/phantom.svg",
+          "type": "registry:file",
+          "target": "public/phantom.svg"
+        },
+        {
+          "path": "registry/solana/public/solflare.svg",
+          "type": "registry:file",
+          "target": "public/solflare.svg"
+        }
+      ]
     }
   ]
 }
