@@ -50,7 +50,7 @@ export default function Home() {
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Wagmi wallet button
             </h2>
-            <OpenInV0Button name="wagmi-wallet" className="w-fit" />
+            <OpenInV0Button name="wagmi-wallet-button" className="w-fit" />
           </div>
           <div className="flex items-center justify-center min-h-[500px] relative">
             <WagmiWalletComponent />
