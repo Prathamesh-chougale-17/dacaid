@@ -100,6 +100,39 @@
           "target": "public/solflare.svg"
         }
       ]
+    },
+    {
+      "name": "wagmi-wallet-button",
+      "type": "registry:component",
+      "title": "WAGMI Wallet Button",
+      "description": "A component for WAGMI wallet button.",
+      "registryDependencies": [
+        "toast",
+        "button",
+        "dropdown-menu",
+        "alert-dialog"
+      ],
+      "dependencies": ["wagmi", "viem@2.x", "@tanstack/react-query"],
+      "devDependencies": ["pino-pretty"],
+      "files": [
+        {
+          "path": "registry/wagmi-wallet/components/wagmi-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/components/wagmi-provider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/components/wallet-options.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/config/wagmi.ts",
+          "type": "registry:hook",
+          "target": "config/wagmi.ts"
+        }
+      ]
     }
   ]
 }

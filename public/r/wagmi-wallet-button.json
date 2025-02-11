@@ -1,0 +1,44 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wagmi-wallet-button",
+  "type": "registry:component",
+  "title": "WAGMI Wallet Button",
+  "description": "A component for WAGMI wallet button.",
+  "dependencies": [
+    "wagmi",
+    "viem@2.x",
+    "@tanstack/react-query"
+  ],
+  "devDependencies": [
+    "pino-pretty"
+  ],
+  "registryDependencies": [
+    "toast",
+    "button",
+    "dropdown-menu",
+    "alert-dialog"
+  ],
+  "files": [
+    {
+      "path": "registry/wagmi-wallet/components/wagmi-button.tsx",
+      "content": "\"use client\";\r\nimport { useAccount, useDisconnect } from \"wagmi\";\r\nimport { WalletOptions } from \"@/registry/wagmi-wallet/components/wallet-options\";\r\nimport { Button } from \"@/components/ui/button\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuContent,\r\n  DropdownMenuItem,\r\n  DropdownMenuTrigger,\r\n} from \"@/components/ui/dropdown-menu\";\r\nimport { useToast } from \"@/hooks/use-toast\";\r\nimport { useEffect, useState } from \"react\";\r\n\r\nconst WagmiWalletButton = () => {\r\n  const { isConnected, address } = useAccount();\r\n  const { disconnect } = useDisconnect();\r\n  const { toast } = useToast();\r\n  const [mounted, setMounted] = useState(false);\r\n\r\n  useEffect(() => {\r\n    setMounted(true);\r\n  }, []);\r\n\r\n  const formatAddress = (addr: string) => {\r\n    if (!addr) return \"\";\r\n    return `${addr.slice(0, 4)}...${addr.slice(-4)}`;\r\n  };\r\n\r\n  const copyAddress = () => {\r\n    if (address) {\r\n      navigator.clipboard.writeText(address);\r\n      toast({\r\n        description: \"Address copied to clipboard\",\r\n      });\r\n    }\r\n  };\r\n\r\n  // Don't render anything until mounted to prevent hydration errors\r\n  if (!mounted) return null;\r\n\r\n  if (isConnected && address) {\r\n    return (\r\n      <DropdownMenu>\r\n        <DropdownMenuTrigger asChild>\r\n          <Button variant=\"outline\" className=\"flex items-center\">\r\n            {formatAddress(address)}\r\n          </Button>\r\n        </DropdownMenuTrigger>\r\n        <DropdownMenuContent align=\"end\">\r\n          <DropdownMenuItem onClick={copyAddress}>\r\n            Copy Address\r\n          </DropdownMenuItem>\r\n          <DropdownMenuItem onClick={() => disconnect()}>\r\n            Disconnect\r\n          </DropdownMenuItem>\r\n        </DropdownMenuContent>\r\n      </DropdownMenu>\r\n    );\r\n  }\r\n\r\n  return <WalletOptions />;\r\n};\r\n\r\nexport default WagmiWalletButton;\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/wagmi-wallet/components/wagmi-provider.tsx",
+      "content": "\"use client\";\r\nimport { config } from \"@/registry/wagmi-wallet/config/wagmi\";\r\nimport { WagmiProvider } from \"wagmi\";\r\nimport { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\r\nconst queryClient = new QueryClient();\r\n\r\nconst GlobalWagmiProvider = ({ children }: { children: React.ReactNode }) => {\r\n  return (\r\n    <WagmiProvider config={config}>\r\n      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>\r\n    </WagmiProvider>\r\n  );\r\n};\r\n\r\nexport default GlobalWagmiProvider;\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/wagmi-wallet/components/wallet-options.tsx",
+      "content": "\"use client\";\r\nimport * as React from \"react\";\r\nimport { Connector, useConnect } from \"wagmi\";\r\nimport { Button } from \"@/components/ui/button\";\r\nimport {\r\n  AlertDialog,\r\n  AlertDialogCancel,\r\n  AlertDialogContent,\r\n  AlertDialogDescription,\r\n  AlertDialogFooter,\r\n  AlertDialogHeader,\r\n  AlertDialogTitle,\r\n  AlertDialogTrigger,\r\n} from \"@/components/ui/alert-dialog\";\r\n\r\nexport function WalletOptions() {\r\n  const { connectors, connect } = useConnect();\r\n  const [open, setOpen] = React.useState(false);\r\n\r\n  return (\r\n    <AlertDialog open={open} onOpenChange={setOpen}>\r\n      <AlertDialogTrigger asChild>\r\n        <Button variant=\"default\">Connect Wallet</Button>\r\n      </AlertDialogTrigger>\r\n      <AlertDialogContent className=\"sm:max-w-[425px]\">\r\n        <AlertDialogHeader>\r\n          <AlertDialogTitle>Connect your wallet</AlertDialogTitle>\r\n          <AlertDialogDescription>\r\n            Choose your preferred wallet to connect to our dApp. Make sure you\r\n            have the wallet installed and set up.\r\n          </AlertDialogDescription>\r\n        </AlertDialogHeader>\r\n        <div className=\"flex flex-col gap-4 py-4\">\r\n          {connectors.map((connector) => (\r\n            <WalletOption\r\n              key={connector.uid}\r\n              connector={connector}\r\n              onClick={() => {\r\n                connect({ connector });\r\n                setOpen(false);\r\n              }}\r\n            />\r\n          ))}\r\n        </div>\r\n        <AlertDialogFooter>\r\n          <AlertDialogCancel>Cancel</AlertDialogCancel>\r\n        </AlertDialogFooter>\r\n      </AlertDialogContent>\r\n    </AlertDialog>\r\n  );\r\n}\r\n\r\nconst WalletOption = ({\r\n  connector,\r\n  onClick,\r\n}: {\r\n  connector: Connector;\r\n  onClick: () => void;\r\n}) => {\r\n  const [ready, setReady] = React.useState(false);\r\n\r\n  React.useEffect(() => {\r\n    (async () => {\r\n      const provider = await connector.getProvider();\r\n      setReady(!!provider);\r\n    })();\r\n  }, [connector]);\r\n\r\n  return (\r\n    <Button\r\n      variant=\"outline\"\r\n      className=\"justify-start gap-2 w-full hover:bg-muted\"\r\n      disabled={!ready}\r\n      onClick={onClick}\r\n    >\r\n      {connector.name}\r\n    </Button>\r\n  );\r\n};\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/wagmi-wallet/config/wagmi.ts",
+      "content": "import { http, createConfig } from \"wagmi\";\r\nimport { mainnet, sepolia } from \"wagmi/chains\";\r\nimport { injected, metaMask, safe } from \"wagmi/connectors\";\r\n\r\nexport const config = createConfig({\r\n  chains: [mainnet, sepolia],\r\n  connectors: [injected(), metaMask(), safe()],\r\n  transports: {\r\n    [mainnet.id]: http(),\r\n    [sepolia.id]: http(),\r\n  },\r\n});\r\n",
+      "type": "registry:hook",
+      "target": "config/wagmi.ts"
+    }
+  ]
+}
