@@ -4,59 +4,48 @@
   "homepage": "https://acme.com",
   "items": [
     {
-      "name": "hello-world",
+      "name": "solana-wallet-authencation-starter",
       "type": "registry:component",
-      "title": "Hello World",
-      "description": "A simple hello world component",
-      "registryDependencies": ["button"],
+      "title": "Solana Wallet Authencation",
+      "description": "A component for Solana wallet authencation.",
+      "registryDependencies": [
+        "toast",
+        "button",
+        "dropdown-menu",
+        "alert-dialog"
+      ],
+      "dependencies": [
+        "@solana/wallet-adapter-react",
+        "@solana/wallet-adapter-base",
+        "@solana/web3.js"
+      ],
       "files": [
         {
-          "path": "registry/hello-world/hello-world.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "example-form",
-      "type": "registry:component",
-      "title": "Example Form",
-      "description": "A contact form with Zod validation.",
-      "dependencies": ["zod"],
-      "registryDependencies": ["button", "input", "label", "textarea", "card"],
-      "files": [
-        {
-          "path": "registry/example-form/example-form.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "complex-component",
-      "type": "registry:component",
-      "title": "Complex Component",
-      "description": "A complex component showing hooks, libs and components.",
-      "registryDependencies": ["card"],
-      "files": [
-        {
-          "path": "registry/complex-component/page.tsx",
-          "type": "registry:page",
-          "target": "app/pokemon/page.tsx"
-        },
-        {
-          "path": "registry/complex-component/components/pokemon-card.tsx",
+          "path": "registry/solana/components/app-wallet-provider.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/complex-component/components/pokemon-image.tsx",
+          "path": "registry/solana/components/wallet-button.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/complex-component/lib/pokemon.ts",
-          "type": "registry:lib"
+          "path": "registry/solana/components/auth-wallet-modal.tsx",
+          "type": "registry:component"
         },
         {
-          "path": "registry/complex-component/hooks/use-pokemon.ts",
-          "type": "registry:hook"
+          "path": "registry/solana/public/phantom.svg",
+          "type": "registry:file",
+          "target": "public/phantom.svg"
+        },
+        {
+          "path": "registry/solana/public/solflare.svg",
+          "type": "registry:file",
+          "target": "public/solflare.svg"
+        },
+        {
+          "path": "registry/solana/layout.tsx",
+          "type": "registry:component",
+          "target": "app/layout.tsx"
         }
       ]
     },
@@ -131,6 +120,44 @@
           "path": "registry/wagmi-wallet/config/wagmi.ts",
           "type": "registry:hook",
           "target": "config/wagmi.ts"
+        }
+      ]
+    },
+    {
+      "name": "wagmi-wallet-button-starter",
+      "type": "registry:component",
+      "title": "WAGMI Wallet Button",
+      "description": "A component for WAGMI wallet button.",
+      "registryDependencies": [
+        "toast",
+        "button",
+        "dropdown-menu",
+        "alert-dialog"
+      ],
+      "dependencies": ["wagmi", "viem@2.x", "@tanstack/react-query"],
+      "devDependencies": ["pino-pretty"],
+      "files": [
+        {
+          "path": "registry/wagmi-wallet/components/wagmi-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/components/wagmi-provider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/components/wallet-options.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/wagmi-wallet/config/wagmi.ts",
+          "type": "registry:hook",
+          "target": "config/wagmi.ts"
+        },
+        {
+          "path": "registry/wagmi-wallet/layout.tsx",
+          "type": "registry:component",
+          "target": "app/layout.tsx"
         }
       ]
     }
