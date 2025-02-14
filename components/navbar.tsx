@@ -3,9 +3,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Menu, Github, Twitter } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import { ComponentSearchBox } from "./search-box";
+import { ModeToggle } from "./mode-toggle";
+import { MobileSearchBox } from "./mobile-search-box";
+import { Icons } from "./icons";
 
 const NavItems = [
   { name: "Home", href: "/" },
@@ -52,29 +55,32 @@ export default function Navbar() {
 
         {/* Search and Social Links */}
         <div className="hidden md:flex items-center space-x-4">
+          <Link
+            href="https://github.com/Prathamesh-Chougale-17/dacaid"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Icons.gitHub />
+            </Button>
+          </Link>
+          <Link
+            href="https://x.com/Prathamesh_7717"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Icons.x className="dark:invert" />
+            </Button>
+          </Link>
           <ComponentSearchBox />
-          <Link
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="ghost" size="icon">
-              <Github className="h-5 w-5" />
-            </Button>
-          </Link>
-          <Link
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="ghost" size="icon">
-              <Twitter className="h-5 w-5" />
-            </Button>
-          </Link>
+          <ModeToggle />
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-2">
+          <MobileSearchBox />
+          <ModeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -94,27 +100,6 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
-                <ComponentSearchBox />
-                <div className="flex space-x-4">
-                  <Link
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button variant="ghost" size="icon">
-                      <Github className="h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Link
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button variant="ghost" size="icon">
-                      <Twitter className="h-5 w-5" />
-                    </Button>
-                  </Link>
-                </div>
               </div>
             </SheetContent>
           </Sheet>
