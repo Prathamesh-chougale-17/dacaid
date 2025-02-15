@@ -14,7 +14,7 @@ import Image from "next/image";
 const NavItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
+  { name: "Docs", href: "/docs" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -65,7 +65,7 @@ export default function Navbar() {
         {/* Search and Social Links */}
         <div className="hidden md:flex items-center space-x-4">
           <Link
-            href="https://github.com/Prathamesh-Chougale-17/dacaid"
+            href="https://github.com/Prathamesh-Chougale-17"
             target="_blank"
             rel="noopener noreferrer"
           >
