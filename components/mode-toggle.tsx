@@ -9,7 +9,7 @@ export function ModeToggle() {
     <>
       <Button
         variant="outline"
-        className="dark:hidden cursor-none"
+        className="dark:hidden cursor-pointer"
         size="icon"
         onClick={() => setTheme("dark")}
       >
@@ -17,7 +17,7 @@ export function ModeToggle() {
       </Button>
       <Button
         variant="outline"
-        className="hidden dark:flex cursor-none"
+        className="hidden dark:flex cursor-pointer"
         size="icon"
         onClick={() => setTheme("light")}
       >

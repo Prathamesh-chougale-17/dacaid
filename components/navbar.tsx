@@ -9,6 +9,7 @@ import { ComponentSearchBox } from "./search-box";
 import { ModeToggle } from "./mode-toggle";
 import { MobileSearchBox } from "./mobile-search-box";
 import { Icons } from "./icons";
+import Image from "next/image";
 
 const NavItems = [
   { name: "Home", href: "/" },
@@ -29,12 +30,20 @@ export default function Navbar() {
       <div className="container flex items-center justify-between h-16 mx-auto px-4">
         {/* Logo and Main Navigation */}
         <div className="flex items-center space-x-8">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-xl font-bold"
-          >
-            Logo
-          </motion.div>
+          <Link href="/">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-xl font-bold w-8 h-8" // Added width and height
+            >
+              <Image
+                src="/dacaid.png"
+                alt="Logo"
+                width={32}
+                height={32}
+                className="dark:invert"
+              />
+            </motion.div>
+          </Link>
           <div className="hidden md:flex items-center space-x-8">
             {NavItems.map((item) => (
               <motion.div
