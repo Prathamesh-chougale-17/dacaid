@@ -31,7 +31,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
 
   return (
     <div
-      className="p-4 bg-black rounded-lg overflow-x-auto"
+      className="p-4 bg-[#0b0e14] rounded-lg overflow-x-auto"
       dangerouslySetInnerHTML={{ __html: highlightedCode }}
     />
   );

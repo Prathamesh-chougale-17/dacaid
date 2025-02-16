@@ -22,7 +22,7 @@ const CodeCard = ({ codeString }: { codeString: string }) => {
             onClick={copyToClipboard}
             variant={"ghost"}
             size={"sm"}
-            className="transition-all"
+            className="transition-all invert dark:invert-0"
           >
             {isCopied ? (
               <Check className="w-4 h-4 text-green-500" />
